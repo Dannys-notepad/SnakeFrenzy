@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Frenzy || Leaderboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.fluid.classless.min.css" >
+    <style>
+      span{
+        font-weight: bold;
+      }
+      header{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Snake Frenzy</h1>
+      <h2>Leaderboard</h2>
+    </header>
+    <section>
+      <center>
+        <table>
+        <th>
+          <tr>
+            <td><span>Gamer</span></td>
+            <td><span>Score</span></td>
+          </tr>
+          </th>
+          <tbody>
+          <% gamers.forEach((gamer) => { %>
+          <tr>
+            <td><%= gamer.gamerTag %></td>
+            <td><%= gamer.score %></td>
+          </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </center>
+    </section>
+  </body>
+</html>
