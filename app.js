@@ -1,21 +1,16 @@
 const express = require('express')
 const app = express()
 const PORT = 8080
-const { generateId, gamerTag } = require('./utils')
-const { gamer } = require('./model/model')
+const { gamer, addGamer } = require('./model/model')
 
 app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
+app.get('/', addGamer, (req, res) => {
   let data = {
-    id: generateId(),
-    gamerTag: gamerTag(),
-    ip: req.ip.slice(7, 16),
-    score: 0
+    empty: null
   }
   const Frenzy = new gamer(data)
-  Frenzy.addGamer()
   Frenzy.displayHighScore(req, res)
 })
 
@@ -27,9 +22,10 @@ app.post('/submitScore', (req, res) => {
   }
   const Frenzy = new gamer(data)
   Frenzy.addGamerScore()
+  //console.log(ip, score)
 })
 
-app.get('/leaderboard', (req, res) => {
+app.get('/leaderboard', addGamer, (req, res) => {
   const data = {
     empty: null
   }

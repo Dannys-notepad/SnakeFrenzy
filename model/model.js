@@ -1,4 +1,5 @@
 const mysql = require('mysql')
+const { generateId, gamerTag } = require('../utils')
 
 class mysqlDB {
   constructor(host, user, password, dbName){
@@ -18,38 +19,39 @@ class mysqlDB {
 
 const Frenzy = new mysqlDB('localhost', 'root', '', 'SnakeFrenzy')
 
+const addGamer = (req, res, next) => {
+  let dbQuery = `SELECT * FROM gamers WHERE gamers.ip = '${req.ip.slice(7, 16)}'`
+  Frenzy.db.connect((err) => {
+    if(err){
+      console.log(err)
+    }
+    Frenzy.db.query(dbQuery, (err, result) => {
+      if(err){
+        console.log(err)
+      }else if(result.length > 0){
+        next()
+      } else if(result.length === 0){
+        dbQuery = `INSERT INTO gamers (id, gamerTag, ip, score) VALUES ('${generateId()}', '${gamerTag()}', '${req.ip.slice(7, 16)}', '${0}')`
+        Frenzy.db.query(dbQuery, (err, result) => {
+          if(err){
+            console.log(err)
+          }else{
+            next()
+          }
+        })
+      }
+    })
+  })
+}
+
 
 class gamer {
   constructor(data){
     this.data = data
-    this.dbQuery = ''
-  }
-
-  addGamer(){
-    this.dbQuery = `SELECT * FROM gamers WHERE gamers.ip = '${this.data.ip}'`
-    Frenzy.db.connect((err) => {
-      if(err){
-        console.log(err)
-      }
-      Frenzy.db.query(this.dbQuery, (err, result) => {
-        if(err){
-          console.log(err)
-        }else if(result.length > 0){
-          console.log(result)
-        }else{
-          this.dbQuery = `INSERT INTO gamers (id, gamerTag, ip, score) VALUES ('${this.data.id}', '${this.data.gamerTag}', '${this.data.ip}', '${this.data.score}')`
-          Frenzy.db.query(this.dbQuery, (err, result) => {
-            if(err){
-              console.log(err)
-            }
-          })
-        }
-      })
-    })
   }
 
   addGamerScore(){
-    this.dbQuery = `UPDATE gamers SET score = '${this.data.score}' WHERE ip = '${this.data.ip}'`
+    this.dbQuery = `SELECT * FROM gamers WHERE gamers.ip = '${this.data.ip}'`
     if(this.data.score === 0 ){
       return false
     }
@@ -58,8 +60,16 @@ class gamer {
         console.log(err)
       }
       Frenzy.db.query(this.dbQuery, (err, result) => {
+        //console.log(result)
         if(err){
           console.log(err)
+        }else if(this.data.score > +result[0].score){
+          this.dbQuery = `UPDATE gamers SET score = '${this.data.score}' WHERE ip = '${this.data.ip}'`
+          Frenzy.db.query(this.dbQuery, (err, result) => {
+            if(err){
+              console.log(err)
+            }
+          })
         }
       })
     })
@@ -94,6 +104,8 @@ class gamer {
           console.log(err)
         }else if(result.length > 0){
           res.render('leaderboard', {gamers: result})
+        }else{
+          res.send('<h1>No Scores to show</h1>')
         }
       })
     })
@@ -103,5 +115,6 @@ class gamer {
 
 
 module.exports = {
-  gamer
+  gamer,
+  addGamer
 }
