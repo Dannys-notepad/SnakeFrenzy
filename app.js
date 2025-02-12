@@ -4,12 +4,14 @@ const PORT = 8080
 const { gamer, addGamer } = require('./model/model')
 
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.set('view engine', 'ejs')
 
 app.get('/', addGamer, (req, res) => {
   let data = {
     empty: null
   }
+  
   const Frenzy = new gamer(data)
   Frenzy.displayHighScore(req, res)
 })

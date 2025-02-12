@@ -10,14 +10,12 @@ const generateId = () => {
 }
 
 const gamerTag = () => {
-  let tem = 'gamer_'
+  let tem = 'gamer__'
   for(let i = 0; i < 13; i++){
     tem += characters.charAt(Math.floor(Math.random() * characters.length))
   }
   return tem
 }
-
-//console.log(gamerTag())
 
 module.exports = {
   generateId,

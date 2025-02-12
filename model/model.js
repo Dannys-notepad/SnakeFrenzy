@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+const mysql = require('mysql2/promise')
 const { generateId, gamerTag } = require('../utils')
 
 class mysqlDB {
@@ -7,7 +7,7 @@ class mysqlDB {
     this.user = user
     this.password = password
     this.dbName = dbName
-    this.db = mysql.createConnection({
+    this.db = mysql.createPool({
       host: this.host,
       user: this.user,
       password: this.password,
