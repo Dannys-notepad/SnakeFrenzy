@@ -1,38 +1,21 @@
+require('dotenv').config()
+
+const path = require('path')
 const express = require('express')
 const app = express()
-const PORT = 8080
-const { gamer, addGamer } = require('./model/model')
+const PORT = 8000
+const { renderGame, submitScore, renderLeaderBoard } = require('./controller/controller')
+const addGamer = require('./middleware/addGamer')
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 app.set('view engine', 'ejs')
 
-app.get('/', addGamer, (req, res) => {
-  let data = {
-    empty: null
-  }
-  
-  const Frenzy = new gamer(data)
-  Frenzy.displayHighScore(req, res)
-})
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.json())
+app.use(addGamer)
 
-app.post('/submitScore', (req, res) => {
-  let { ip, score } = req.body
-  let data = {
-    ip,
-    score: +score
-  }
-  const Frenzy = new gamer(data)
-  Frenzy.addGamerScore()
-  //console.log(ip, score)
-})
-
-app.get('/leaderboard', addGamer, (req, res) => {
-  const data = {
-    empty: null
-  }
-  const Frenzy = new gamer(data)
-  Frenzy.showLeaderBoard(res)
-})
+app.get('/', renderGame)
+app.post('/submit', submitScore)
+app.get('/leaderboard', renderLeaderBoard)
 
 app.listen(PORT, () => console.log('Game server up and running'))

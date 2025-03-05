@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Snake Frenzy</title>
-	<link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-      <header>
-        <h1>🐍 Snake Frenzy</h1>
-        <h2>Leaderboard</h2>
-    </header>
-    
-            
-    
-  <!-- Replace the form with these hidden inputs -->
-<form action="https://snake-frenzy.onrender.com/submit" method="POST" hidden>
-    <input class="scoreInput" name="score" type="hidden">
-    <button type="submit"></button>
-</form>
-	<div id="game-container">
-		<canvas id="gc" class="game-canvas" width="400" height="400"></canvas>
-	</div><div class="keys">
-    <div class="controls-column">
-        <!-- Up Button -->
-        <a class="up arr" onclick="Snake.action('up')" aria-label="Up">
-            <i class="chevron up"></i>
-            <span class="btn-label">Up</span>
-        </a>
-        
-        <div class="controls-row">
-            <!-- Left Button -->
-            <a class="left arr" onclick="Snake.action('left')" aria-label="Left">
-                <i class="chevron left"></i>
-                <span class="btn-label">Left</span>
-            </a>
-            
-            <!-- Down Button -->
-            <a class="down arr" onclick="Snake.action('down')" aria-label="Down">
-                <i class="chevron down"></i>
-                <span class="btn-label">Down</span>
-            </a>
-            
-            <!-- Right Button -->
-            <a class="right arr" onclick="Snake.action('right')" aria-label="Right">
-                <i class="chevron right"></i>
-                <span class="btn-label">Right</span>
-            </a>
-        </div>
-    </div>
-</div>
-	<div class="back-link">
-            <a href="/leaderboard">To Leaderboard</a>
-        </div>
-	  
-	  <script>
+	    	 alert('hello')
 	    	  const form = document.querySelector('form')
 	  const score = document.querySelector('.scoreInput')
 	  form.addEventListener('submit', (e) => {
@@ -391,6 +335,3 @@ Snake.start(4);
 Snake.setup.keyboard(true);
 Snake.setup.fixedTail(false);
 	  
-	  </script>
-</body>
-</html>

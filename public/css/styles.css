@@ -1,0 +1,163 @@
+
+    :root {
+        --primary-color: #2ecc71;
+        --secondary-color: #27ae60;
+        --accent-color: #e74c3c;
+        --background: #1a1a1a;
+        --text-color: #ecf0f1;
+        --control-bg: #34495e;
+    }
+
+    body {
+        margin: 0;
+        background-color: var(--background);
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .game-canvas {
+        width: 90vw;
+        height: 90vw;
+        max-width: 500px;
+        max-height: 500px;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        border: 2px solid var(--primary-color);
+    }
+
+    #game-container {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        margin: 1rem auto;
+        max-width: 600px;
+    }
+
+    .keys {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 400px;
+}
+
+.controls-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.controls-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.arr {
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    background: var(--control-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.arr:hover .btn-label {
+    opacity: 1;
+}
+
+/* Existing chevron styles remain the same */
+
+    .chevron::before {
+        border-color: var(--text-color);
+        border-width: 3px 3px 0 0;
+        height: 24px;
+        width: 24px;
+    }
+
+    .back-link {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    .back-link a {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8rem 2rem;
+        background: var(--accent-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        gap: 0.5rem;
+        font-weight: 500;
+    }
+
+    .back-link a:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    form {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .score-display {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 1rem 0;
+        font-size: 1.25rem;
+    }
+
+    @media (max-width: 480px) {
+        .game-canvas {
+            width: 95vw;
+            height: 95vw;
+        }
+
+        .arr {
+            width: 60px;
+            height: 60px;
+        }
+
+        .chevron::before {
+            height: 20px;
+            width: 20px;
+        }
+    }
+    
