@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(addGamer)
 
 app.get('/', renderGame)
-app.post('/submit', submitScore)
+app.post('/', submitScore)
 app.get('/leaderboard', renderLeaderBoard)
 
 app.listen(PORT, () => console.log('Game server up and running'))

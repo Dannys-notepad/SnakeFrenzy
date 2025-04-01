@@ -34,7 +34,7 @@ const submitScore = async (req, res) => {
       result = await Gamer.addScore(data)
       //result = await Gamer.topScore()
     }
-    res.redirect('/')
+    //res.redirect('/')
     
   } catch (e) {
     console.error(e)
